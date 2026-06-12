@@ -72,19 +72,38 @@ Accessible at `http://localhost:4200/delete-user`. Displays all users with a che
 
 This project includes a specialized AI Skill to help future agents manage the application.
 
-### Installing the Skill
+### Using Skills
 
-To enable the `run-demo-app` skill in your Gemini CLI:
+Skills are located in `.github/skills/`. Each skill is a directory containing a `SKILL.md` file with domain-specific instructions for AI agents.
 
-1.  **Install the skill file:**
+Currently available skills:
+- `run-demo-app` — instructions for starting, managing, and troubleshooting this application
+
+### Adding a New Skill
+
+1. Create a new directory under `.github/skills/` named after your skill:
     ```bash
-    gemini skills install run-demo-app.skill --scope workspace
+    mkdir -p .github/skills/your-skill-name
+    ```
+2. Inside it, create the following structure:
+    ```
+    .github/skills/your-skill-name/
+    ├── SKILL.md          # Required — main entry point with instructions for the agent
+    ├── steps/            # Optional — sub-step files for multi-step skills (sub files like SKILL.md)
+    ├── assets/           # Optional — images, diagrams, or other static resources
+    ├── references/       # Optional — documentation, API specs, guidelines
+    └── scripts/          # Optional — helper scripts the agent can reference or execute
+    ```
+3. `SKILL.md` must start with a YAML frontmatter block followed by the skill content:
+    ```markdown
+    ---
+    name: your-skill-name
+    description: Brief description of what this skill does and when to use it.
+    ---
+
+    # Your Skill Name
+
+    Instructions and context for the agent...
     ```
 
-2.  **Reload the session:**
-    In your interactive Gemini CLI session, run the following command to activate the skill:
-    ```
-    /skills reload
-    ```
-
-Once installed and reloaded, the agent will have specialized knowledge for starting, managing, and troubleshooting this specific application.
+The agent will automatically discover and use skills placed in this directory.
