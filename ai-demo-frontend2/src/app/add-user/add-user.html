@@ -1,0 +1,22 @@
+<h1>Add New User</h1>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">Username (Mandatory)</label>
+    <input type="text" id="username" formControlName="username" placeholder="Enter username">
+    @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+      <div class="error">
+        Username is required.
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email (Optional)</label>
+    <input type="email" id="email" formControlName="email" placeholder="Enter email">
+
+  </div>
+
+  <button type="submit" [disabled]="userForm.invalid">Add User</button>
+  <button type="button" (click)="userForm.reset()">Reset</button>
+</form>
